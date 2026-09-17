@@ -39,15 +39,27 @@ export function getRepoPreviewImageUrl(repoName: string): string {
 }
 
 export async function getGithubRepos(): Promise<GithubRepoSummary[]> {
+  // A API do GitHub libera só 60 requisições/hora por IP sem autenticação —
+  // e como a Vercel roda o servidor em IPs compartilhados com muitos outros
+  // projetos, esse limite estoura fácil, fazendo essa busca falhar (e, por
+  // causa do cache de 1h do ISR, os projetos somem do site por uma hora
+  // inteira). Com um token, o limite sobe pra 5.000/hora — o token só
+  // precisa de acesso de leitura a repositórios públicos, nenhuma
+  // permissão especial.
+  const token = process.env.GITHUB_TOKEN;
+  const headers: HeadersInit = { Accept: "application/vnd.github+json" };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
   const response = await fetch(
     `https://api.github.com/users/${personal.githubUsername}/repos?per_page=100&sort=updated`,
     {
-      headers: { Accept: "application/vnd.github+json" },
+      headers,
       next: { revalidate: GITHUB_REVALIDATE_SECONDS },
     }
   );
 
   if (!response.ok) {
+    console.error(`[github] Falha ao buscar repositórios: ${response.status} ${response.statusText}`);
     return [];
   }
 
