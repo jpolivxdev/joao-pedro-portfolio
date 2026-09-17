@@ -22,7 +22,7 @@ const playfair = Playfair_Display({
   style: ["italic", "normal"],
 });
 
-const siteUrl = "https://joaopedrooliva.dev"; // troque pela URL real após o deploy
+const siteUrl = "https://joao-pedro-portfolio-black.vercel.app"; // atualize se trocar de domínio
 
 // "metadata" é a forma padrão do App Router de definir <title>, <meta description>,
 // Open Graph etc. sem precisar escrever tags manualmente em <head> — o Next.js

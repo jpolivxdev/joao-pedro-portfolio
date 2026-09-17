@@ -18,7 +18,7 @@ export const personal = {
   short:
     "Estudante de Análise e Desenvolvimento de Sistemas na FACENS (5º semestre), buscando minha primeira vaga efetiva em TI.",
   about:
-    "Tenho 20 anos e estou no 5º semestre de Análise e Desenvolvimento de Sistemas na FACENS. Construo APIs REST com Node.js, Express e MongoDB, já usei React e Angular em projetos reais, e hoje atuo na área técnica da Huawei em projetos de telecomunicações. Busco minha primeira vaga efetiva como Desenvolvedor Backend Jr, Analista de Suporte Técnico Jr ou em Infraestrutura/Telecom.",
+    "Tenho 20 anos e estou no 5º semestre de Análise e Desenvolvimento de Sistemas na FACENS. Construo APIs REST com Node.js, Express e MongoDB, já usei React e Angular em projetos reais, e atuei na área técnica da Huawei em projetos de telecomunicações. Busco minha primeira vaga efetiva como Desenvolvedor Backend Jr, Analista de Suporte Técnico Jr ou em Infraestrutura/Telecom.",
   location: "Sorocaba, SP",
   availability: ["Sorocaba", "Híbrido", "Remoto"],
   avatarSrc: "/images/avatar.jpg",

@@ -1,6 +1,8 @@
 # Portfólio — João Pedro Oliva Fogaça
 
-Protótipo de portfólio pessoal em Next.js 16 (App Router), TypeScript, Tailwind CSS v4 e Motion (Framer Motion), pronto para deploy na Vercel.
+🔗 **Site no ar:** [joao-pedro-portfolio-black.vercel.app](https://joao-pedro-portfolio-black.vercel.app)
+
+Portfólio pessoal em Next.js 16 (App Router), TypeScript, Tailwind CSS v4 e Motion (Framer Motion), publicado na Vercel.
 
 Este README foi escrito partindo do princípio de que você conhece bem JavaScript/TypeScript, Node/Express, Angular e React "básico" — mas está vendo Next.js e Framer Motion pela primeira vez. Cada seção explica o "porquê", não só o "o quê".
 
@@ -32,6 +34,15 @@ Para enviar e-mails de verdade:
 2. Copie `.env.example` para `.env.local`.
 3. Cole a chave em `RESEND_API_KEY`.
 4. Reinicie `npm run dev`.
+
+### Variável de ambiente dos projetos (GitHub)
+
+A seção "Projetos" busca seus repositórios reais na API pública do GitHub (`src/lib/github.ts`). Sem token, funciona normalmente em desenvolvimento — a API libera 60 requisições/hora sem autenticação, o que é mais que suficiente pra testar local.
+
+Em produção, porém, isso é arriscado: a Vercel roda em IPs compartilhados com muitos outros projetos, então esse limite estoura fácil, e como o resultado fica em cache por 1h (ISR), os projetos somem do site até o cache expirar. Pra evitar isso:
+
+1. Gere um token em [github.com/settings/tokens](https://github.com/settings/tokens) → "Fine-grained tokens" → Generate new token (não precisa marcar nenhuma permissão, só lê dados públicos).
+2. Adicione como `GITHUB_TOKEN` no `.env.local` (local) e nas Environment Variables do projeto na Vercel (produção).
 
 Por padrão o remetente é `onboarding@resend.dev` (o endereço de testes do Resend, que funciona sem verificar domínio). Quando quiser enviar de um e-mail com seu próprio domínio, verifique o domínio no painel do Resend e troque `FROM_EMAIL` em `src/app/api/contact/route.ts`.
 
@@ -181,16 +192,15 @@ Cada `git push` subsequente para a branch principal gera um novo deploy automát
 
 ## O que ainda falta preencher
 
-- **Foto real**: troque `public/images/avatar-placeholder.svg` por uma foto sua (atualize `avatarSrc` em `src/data/profile.ts`).
 - **Link do artigo IEEE**: quando tiver o link do artigo do OpenMind, adicione de volta o `extraLink` no projeto correspondente em `curatedProjects` (`src/data/profile.ts`).
 - **Nomes dos repositórios no GitHub**: o campo `repoName` de cada projeto em `curatedProjects` precisa bater exatamente com o nome do repositório no GitHub para que a capa/estrelas/link apareçam automaticamente.
 
-### Regenerando os PDFs dos currículos
+### Currículos em PDF
 
-Os PDFs em `public/curriculos/` (`Joao_Pedro_Curriculo_Backend.pdf` e `Joao_Pedro_Curriculo_Suporte.pdf`) foram gerados a partir dos `.docx` originais com o script `scripts/convert-resumes.mjs` (usa `mammoth` pra ler o `.docx` e `pdfkit` pra desenhar o PDF — não depende de ter Word ou LibreOffice instalado). Toda vez que você editar os arquivos `.docx` em `public/curriculos/`, rode de novo:
+Os PDFs em `public/curriculos/` são formatados manualmente (Word/Canva/etc.) e exportados direto pra lá — não são gerados automaticamente. Pra atualizar, é só exportar a versão nova com o mesmo nome de arquivo, substituindo a antiga.
+
+Existe também um script (`scripts/convert-resumes.mjs`, usa `mammoth` + `pdfkit`) que gera um PDF simples a partir de um `.docx`, sem depender de Word ou LibreOffice instalado — útil só se você quiser um PDF rápido e não tiver os arquivos formatados à mão à disposição:
 
 ```bash
 node scripts/convert-resumes.mjs
 ```
-
-O layout do PDF gerado é simples (título, negrito, listas) — não é uma cópia pixel-a-pixel do `.docx`, mas mantém todo o conteúdo e a formatação básica.
