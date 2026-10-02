@@ -13,6 +13,8 @@ const SIMPLE_ICON_SLUGS: Record<string, string> = {
   Angular: "angular",
   Java: "openjdk",
   "Spring Boot": "springboot",
+  NestJS: "nestjs",
+  Prisma: "prisma",
   "Chart.js": "chartdotjs",
   PostgreSQL: "postgresql",
   Supabase: "supabase",

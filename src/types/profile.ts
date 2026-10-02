@@ -35,7 +35,7 @@ export interface CuratedProject {
   description: string;
   stack: string[];
   status: string;
-  extraLink?: { label: string; href: string };
+  extraLinks?: { label: string; href: string }[];
 }
 
 export interface Recommendation {

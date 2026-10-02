@@ -115,6 +115,18 @@ export const certifications: CertificationItem[] = [
 // link, data de atualização) que vêm da API route /api/github-repos.
 export const curatedProjects: CuratedProject[] = [
   {
+    repoName: "fintrack",
+    title: "FinTrack",
+    description:
+      "Controle financeiro pessoal (ou a dois), mobile-first e instalável como PWA: contas e cartões, parcelamento, orçamentos, metas e investimentos comparados ao CDI. API REST com autenticação JWT, mais de 40 testes de segurança automatizados, CI com CodeQL e testes de carga (k6).",
+    stack: ["NestJS", "Prisma", "PostgreSQL", "React", "TypeScript"],
+    status: "Full-stack no ar",
+    extraLinks: [
+      { label: "Demo ao vivo", href: "https://fintrack-flax-two.vercel.app" },
+      { label: "API (Swagger)", href: "https://fintrack-api-qgr2.onrender.com/api/docs" },
+    ],
+  },
+  {
     repoName: "openmindfrontback",
     title: "OpenMind",
     description:
@@ -137,7 +149,7 @@ export const curatedProjects: CuratedProject[] = [
       "Aplicação web de gestão pessoal em Angular, com módulos de tarefas, finanças, metas e notificações — inclui gráficos (Chart.js) para visualizar o progresso.",
     stack: ["Angular", "TypeScript", "Chart.js"],
     status: "Projeto pessoal",
-    extraLink: { label: "Ver projeto no ar", href: "https://vida-app-2.vercel.app" },
+    extraLinks: [{ label: "Ver projeto no ar", href: "https://vida-app-2.vercel.app" }],
   },
 ];
 

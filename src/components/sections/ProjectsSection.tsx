@@ -26,18 +26,18 @@ export async function ProjectsSection() {
     <section id="projetos" aria-labelledby="projetos-heading" className="scroll-mt-24">
       <SectionHeading eyebrow="Portfólio" title="Projetos" />
 
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
+      <div className="grid sm:grid-cols-2 2xl:grid-cols-4 gap-5">
         {projects.map((project, index) => (
           <RevealOnScroll
             key={project.repoName}
             delay={index * 0.1}
             // Se sobrar um card "ímpar" no fim da grid de 2 colunas, ele
             // ocupa a linha inteira em vez de ficar sozinho de um lado —
-            // mas só até o breakpoint "xl", onde a grid já passa a ter 3
-            // colunas e não sobra nenhum card solto.
+            // mas só até o breakpoint "2xl", onde a grid passa a ter 4
+            // colunas e o card volta a ocupar só uma.
             className={
               index === projects.length - 1 && projects.length % 2 !== 0
-                ? "sm:col-span-2 xl:col-span-1"
+                ? "sm:col-span-2 2xl:col-span-1"
                 : undefined
             }
           >
@@ -108,17 +108,18 @@ export async function ProjectsSection() {
                     <ExternalLinkIcon className="w-3.5 h-3.5" />
                   </a>
                 )}
-                {project.extraLink && (
+                {project.extraLinks?.map((link) => (
                   <a
-                    href={project.extraLink.href}
+                    key={link.href}
+                    href={link.href}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-foreground hover:text-accent transition-colors"
                   >
-                    {project.extraLink.label}
+                    {link.label}
                     <ExternalLinkIcon className="w-3.5 h-3.5" />
                   </a>
-                )}
+                ))}
               </div>
               </div>
             </div>
