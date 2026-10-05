@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 
 const navItems = [
-  { label: "Experiência", href: "#experiencia" },
-  { label: "Projetos", href: "#projetos" },
-  { label: "Certificações", href: "#certificacoes" },
-  { label: "Recomendação", href: "#recomendacao" },
+  { label: "Backend", href: "#trilha-backend" },
+  { label: "Suporte", href: "#trilha-suporte" },
+  { label: "Infra/Telecom", href: "#trilha-infra" },
+  { label: "Sobre", href: "#sobre" },
   { label: "Contato", href: "#contato" },
 ];
 
@@ -49,11 +49,11 @@ export function Header() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
-      <nav aria-label="Navegação principal" className="max-w-[1600px] mx-auto px-6 py-4">
+    <header className="sticky top-0 z-40 border-b border-border bg-background">
+      <nav aria-label="Navegação principal" className="max-w-[1440px] mx-auto px-6 py-2">
         <div className="flex items-center justify-between">
-          <a href="#top" className="font-semibold text-foreground">
-            JP<span className="text-accent">.</span>dev
+          <a href="#top" className="inline-flex min-h-11 items-center font-semibold text-foreground">
+            JP<span className="text-accent-text">.</span>dev
           </a>
 
           <ul className="hidden sm:flex items-center gap-6">
@@ -64,8 +64,8 @@ export function Header() {
                   <a
                     href={item.href}
                     aria-current={isActive ? "true" : undefined}
-                    className={`text-sm transition-colors ${
-                      isActive ? "text-accent font-medium" : "text-muted hover:text-accent"
+                    className={`inline-flex min-h-11 items-center text-sm transition-colors ${
+                      isActive ? "text-accent-text font-medium" : "text-muted hover:text-foreground"
                     }`}
                   >
                     {item.label}
@@ -81,7 +81,7 @@ export function Header() {
             aria-expanded={menuOpen}
             aria-controls="mobile-menu"
             aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            className="sm:hidden inline-flex items-center justify-center w-9 h-9 rounded-lg border border-border text-foreground"
+            className="sm:hidden inline-flex items-center justify-center w-11 h-11 rounded-lg border border-border text-foreground"
           >
             <svg viewBox="0 0 24 24" className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
               {menuOpen ? (
@@ -114,8 +114,8 @@ export function Header() {
                       href={item.href}
                       onClick={() => setMenuOpen(false)}
                       aria-current={isActive ? "true" : undefined}
-                      className={`block rounded-lg px-3 py-2 text-sm transition-colors ${
-                        isActive ? "text-accent bg-accent/10 font-medium" : "text-muted hover:text-accent"
+                      className={`flex min-h-11 items-center rounded-lg px-3 text-sm transition-colors ${
+                        isActive ? "text-accent-text bg-surface-raised font-medium" : "text-muted hover:text-foreground"
                       }`}
                     >
                       {item.label}

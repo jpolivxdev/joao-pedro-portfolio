@@ -67,6 +67,23 @@ export function StarIcon({ className }: IconProps) {
   );
 }
 
+export function ChevronIcon({ className, direction }: IconProps & { direction: "left" | "right" | "down" }) {
+  const d = { left: "m15 5-7 7 7 7", right: "m9 5 7 7-7 7", down: "m5 9 7 7 7-7" }[direction];
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden="true">
+      <path d={d} strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+export function CloseIcon({ className }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={className} aria-hidden="true">
+      <path d="M6 6l12 12M18 6 6 18" strokeLinecap="round" />
+    </svg>
+  );
+}
+
 export function QuoteIcon({ className }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">

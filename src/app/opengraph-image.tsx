@@ -19,16 +19,16 @@ export default function OpengraphImage() {
           flexDirection: "column",
           justifyContent: "center",
           padding: "80px",
-          background: "#000000",
-          color: "#f2f3f5",
+          background: "#0b0e13",
+          color: "#e6e8ec",
           fontFamily: "Arial, sans-serif",
         }}
       >
-        <div style={{ fontSize: 28, color: "#3b82f6", display: "flex", marginBottom: 16 }}>
+        <div style={{ fontSize: 28, color: "#8fa8ff", display: "flex", marginBottom: 16 }}>
           Portfólio
         </div>
         <div style={{ fontSize: 64, fontWeight: 700, display: "flex" }}>{personal.name}</div>
-        <div style={{ fontSize: 32, color: "#8b8f98", display: "flex", marginTop: 24 }}>
+        <div style={{ fontSize: 32, color: "#a4a9b3", display: "flex", marginTop: 24 }}>
           {personal.headline}
         </div>
       </div>

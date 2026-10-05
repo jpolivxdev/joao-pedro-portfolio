@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Playfair_Display } from "next/font/google";
+import { Geist, Geist_Mono, Big_Shoulders } from "next/font/google";
 import "./globals.css";
 import { personal } from "@/data/profile";
 
@@ -13,13 +13,12 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-// Fonte serifada usada só no destaque da capa (NameHero), misturada com a
-// sans-serif normal — é o mesmo contraste "serifada + sans" que dá o ar
-// mais editorial/sofisticado a sites de agência/portfólio.
-const playfair = Playfair_Display({
-  variable: "--font-playfair",
+// Voz de display do catálogo: condensada, caixa alta, com caráter de
+// sinalização industrial (combina com enlaces, torres e rodovias do mundo
+// de telecom). Usada só em nome, títulos de trilha e capas; o resto é Geist.
+const display = Big_Shoulders({
+  variable: "--font-display",
   subsets: ["latin"],
-  style: ["italic", "normal"],
 });
 
 const siteUrl = "https://joao-pedro-portfolio-black.vercel.app"; // atualize se trocar de domínio
@@ -60,7 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="pt-BR"
-      className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}

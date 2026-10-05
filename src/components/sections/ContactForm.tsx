@@ -87,7 +87,7 @@ export function ContactForm() {
           type="text"
           required
           minLength={2}
-          className="w-full rounded-lg border border-border bg-background-elevated px-4 py-2.5 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+          className="w-full rounded-lg border border-border bg-background min-h-11 px-4 py-2.5 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-accent"
         />
       </div>
 
@@ -100,7 +100,7 @@ export function ContactForm() {
           name="email"
           type="email"
           required
-          className="w-full rounded-lg border border-border bg-background-elevated px-4 py-2.5 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-accent"
+          className="w-full rounded-lg border border-border bg-background min-h-11 px-4 py-2.5 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-accent"
         />
       </div>
 
@@ -114,7 +114,7 @@ export function ContactForm() {
           required
           minLength={6}
           rows={4}
-          className="w-full rounded-lg border border-border bg-background-elevated px-4 py-2.5 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-accent resize-none"
+          className="w-full rounded-lg border border-border bg-background min-h-11 px-4 py-2.5 text-sm text-foreground focus-visible:outline-2 focus-visible:outline-accent resize-none"
         />
       </div>
 
@@ -123,29 +123,37 @@ export function ContactForm() {
           comum pra deixar explícito pra que os dados (nome, e-mail e
           mensagem) serão usados — aqui, só responder o contato por e-mail,
           nada é salvo em banco de dados. */}
-      <label className="flex items-start gap-2.5 text-xs text-muted">
+      <label className="flex min-h-11 items-center gap-3 text-sm text-muted">
         <input
           type="checkbox"
           name="consent"
           checked={consent}
           onChange={(event) => setConsent(event.target.checked)}
-          className="mt-0.5 w-4 h-4 rounded border-border bg-background-elevated accent-[var(--color-accent)] shrink-0"
+          className="h-5 w-5 shrink-0 rounded accent-[var(--color-accent)]"
         />
         Autorizo o uso destes dados (nome, e-mail e mensagem) apenas para que João Pedro
         entre em contato comigo, conforme a LGPD.
       </label>
 
-      <button
-        type="submit"
-        disabled={status === "sending" || !consent}
-        className="rounded-full bg-accent text-accent-foreground px-6 py-2.5 text-sm font-semibold hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed self-start"
-      >
-        {status === "sending" ? "Enviando..." : "Enviar mensagem"}
-      </button>
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+        <button
+          type="submit"
+          disabled={status === "sending" || !consent}
+          aria-describedby={consent ? undefined : "dica-envio"}
+          className="min-h-11 rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+        >
+          {status === "sending" ? "Enviando..." : "Enviar mensagem"}
+        </button>
+        {!consent && (
+          <p id="dica-envio" className="text-sm text-muted">
+            Marque a autorização acima para liberar o envio.
+          </p>
+        )}
+      </div>
 
       <div role="status" aria-live="polite">
         {status === "success" && (
-          <p className="text-sm text-accent">Mensagem enviada! Retorno em breve.</p>
+          <p className="text-sm text-accent-text">Mensagem enviada! Retorno em breve.</p>
         )}
         {status === "error" && <p className="text-sm text-red-400">{errorMessage}</p>}
       </div>

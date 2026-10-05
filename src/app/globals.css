@@ -1,62 +1,94 @@
 @import "tailwindcss";
 
 /*
- * Todas as cores do site vivem aqui como CSS custom properties (variáveis).
- * Isso significa que, se um dia você quiser trocar a paleta (por exemplo,
- * de ciano para roxo), basta editar os valores abaixo — nenhum componente
- * precisa ser tocado.
+ * Todas as cores do site vivem aqui como variáveis CSS. Para trocar a
+ * paleta, edite só estes valores: nenhum componente tem cor fixa.
+ *
+ * Cena de uso: recrutador no fim da tarde, laptop com o brilho baixo, entre
+ * dezenas de abas de candidatos. Fundo escuro grafite azulado deixa as capas
+ * (a única cor "grande" da página) brilharem e o resto recuar.
  */
 :root {
-  --color-bg: #000000;
-  --color-bg-elevated: #0a0a0c;
-  --color-foreground: #f2f3f5;
-  --color-muted: #8b8f98;
-  --color-accent: #3b82f6;
-  --color-accent-foreground: #071b3d;
-  --color-border: rgba(242, 243, 245, 0.1);
-  --color-card-bg: rgba(242, 243, 245, 0.04);
-  --color-card-bg-hover: rgba(59, 130, 246, 0.08);
+  --color-bg: #0b0e13;
+  --color-bg-elevated: #151922;
+  --color-surface-raised: #1f2430;
+  --color-foreground: #e6e8ec;
+  --color-muted: #a4a9b3;
+  --color-faint: #8b919c;
+  --color-border: rgba(230, 232, 236, 0.12);
+
+  /* Único acento: azul escuro. Só para foco, ação e anel de seleção.
+     Texto sobre ele é branco (5,8:1); como texto sobre o fundo usa-se a
+     versão clara (--color-accent-text). */
+  --color-accent: #2c59e0;
+  --color-accent-foreground: #ffffff;
+  --color-accent-text: #8fa8ff;
+  --color-accent-hover: #3a66ee;
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/*
- * @theme inline é a forma do Tailwind v4 de transformar variáveis CSS em
- * utilitários de verdade (ex.: bg-background, text-accent). Sem isso, as
- * variáveis acima existiriam, mas classes como "bg-background" não.
- */
+/* Matizes das trilhas: cada uma pinta as capas da sua fileira. Branco sobre
+   cada fundo passa de 5:1 (índigo 6,2; coral 5,1; verde-petróleo 5,3). */
+.hue-backend {
+  --c-bg: #4651d6;
+  --c-deep: #2e36a6;
+  --c-light: #aab2f7;
+}
+.hue-suporte {
+  --c-bg: #c2432e;
+  --c-deep: #8f2d1d;
+  --c-light: #f3b5a9;
+}
+.hue-infra {
+  --c-bg: #0c7a67;
+  --c-deep: #075446;
+  --c-light: #8fdccb;
+}
+
 @theme inline {
   --color-background: var(--color-bg);
   --color-background-elevated: var(--color-bg-elevated);
+  --color-surface-raised: var(--color-surface-raised);
   --color-foreground: var(--color-foreground);
   --color-muted: var(--color-muted);
+  --color-faint: var(--color-faint);
   --color-accent: var(--color-accent);
   --color-accent-foreground: var(--color-accent-foreground);
+  --color-accent-text: var(--color-accent-text);
+  --color-accent-hover: var(--color-accent-hover);
   --color-border: var(--color-border);
-  --color-card: var(--color-card-bg);
-  --color-card-hover: var(--color-card-bg-hover);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-display);
 }
 
-* {
-  border-color: var(--color-border);
+/* Na camada base, para não vencer utilitários como border-accent. */
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
 }
 
 html {
   scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
 
-  /* Glow decorativo: dois brilhos suaves (radial-gradient) atrás do
-     conteúdo, mais fortes perto do topo. São só cor + transparência —
-     sem nenhum filtro de blur pesado — então não custam performance. */
-  background-image:
-    radial-gradient(640px circle at 12% -8%, rgba(59, 130, 246, 0.14), transparent 60%),
-    radial-gradient(520px circle at 92% 10%, rgba(59, 130, 246, 0.08), transparent 60%);
-  background-repeat: no-repeat;
+/* Voz de display: condensada, caixa alta. Tamanho máximo 6rem. */
+.display {
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 0.92;
+  text-wrap: balance;
 }
 
 ::selection {
@@ -64,23 +96,171 @@ body {
   color: var(--color-accent-foreground);
 }
 
-/* Glassmorphism reutilizável: fundo semi-transparente + blur.
-   Usado em todos os cards do bento grid e nos cards de seção. */
-.glass-card {
-  background: var(--color-card-bg);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid var(--color-border);
-  transition: background 0.3s ease, border-color 0.3s ease;
-}
-
-.glass-card:hover {
-  background: var(--color-card-bg-hover);
-  border-color: rgba(59, 130, 246, 0.35);
-}
-
-/* Foco visível para navegação por teclado (acessibilidade) */
 :focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
+  outline: 2px solid var(--color-accent-text);
+  outline-offset: 3px;
+}
+
+input,
+textarea {
+  caret-color: var(--color-accent-text);
+}
+
+/* ---------- A parede: fileiras, tiles e painel de detalhe ---------- */
+
+.rail {
+  --tile-w: min(72vw, 280px);
+  --tile-h: calc(var(--tile-w) * 9 / 16);
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  padding: 28px 24px 36px;
+  margin-inline: -24px;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: 24px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-surface-raised) transparent;
+}
+.rail::-webkit-scrollbar {
+  height: 8px;
+}
+.rail::-webkit-scrollbar-thumb {
+  background: var(--color-surface-raised);
+  border-radius: 8px;
+}
+
+.rail > li {
+  display: flex;
+  flex: 0 0 auto;
+  scroll-snap-align: start;
+}
+
+@media (hover: none) {
+  .rail {
+    scrollbar-width: none;
+  }
+  .rail::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tile {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: var(--tile-w);
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--color-bg-elevated);
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    transform 0.26s var(--ease-out),
+    opacity 0.26s var(--ease-out),
+    box-shadow 0.26s var(--ease-out);
+}
+.tile .cover {
+  position: relative;
+  flex: none;
+  width: 100%;
+  height: var(--tile-h);
+  background: var(--c-bg);
+  overflow: hidden;
+}
+/* Legenda sempre visível: tipo, frase e a ação. Não depende de hover, então
+   quem usa toque ou nunca passa o mouse também sabe o que o tile é. */
+.tile .peek {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px;
+  background: var(--color-bg-elevated);
+}
+.tile .peek > :last-child {
+  margin-top: auto;
+  padding-top: 2px;
+}
+
+.tile[aria-expanded="true"] {
+  box-shadow:
+    0 0 0 2px var(--color-accent),
+    0 22px 40px -14px rgb(0 0 0 / 0.7);
+}
+
+.tile:focus-visible {
+  outline-offset: 4px;
+  transform: translateY(-4px);
+}
+@media (hover: hover) {
+  .tile:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 0 0 2px var(--color-accent),
+      0 22px 40px -14px rgb(0 0 0 / 0.7);
+  }
+}
+
+/* O foco escurece os vizinhos; o tile aberto nunca escurece. */
+@media (hover: hover) {
+  .rail:has(.tile:hover) .tile:not(:hover):not([aria-expanded="true"]) {
+    opacity: 0.42;
+  }
+}
+.rail:has(.tile:focus-visible) .tile:not(:focus-visible):not([aria-expanded="true"]) {
+  opacity: 0.42;
+}
+
+/* Painel de detalhe: abre embaixo da fileira, no fluxo, sem modal. */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.36s var(--ease-out);
+}
+.panel[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+.panel > .panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Capas altas da primeira tela: mesma gramática dos tiles. */
+.track-cover {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--c-bg);
+  transition:
+    transform 0.34s var(--ease-out),
+    opacity 0.26s var(--ease-out),
+    box-shadow 0.26s var(--ease-out);
+}
+@media (hover: hover) {
+  .track-cover:hover {
+    transform: translateY(-6px);
+    box-shadow:
+      0 0 0 2px var(--color-accent),
+      0 24px 40px -16px rgb(0 0 0 / 0.75);
+  }
+  .covers:has(.track-cover:hover) .track-cover:not(:hover) {
+    opacity: 0.45;
+  }
+}
+.track-cover:focus-visible {
+  outline-offset: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

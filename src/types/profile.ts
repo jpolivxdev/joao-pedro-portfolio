@@ -49,3 +49,40 @@ export interface ResumeFile {
   label: string;
   href: string;
 }
+
+export type TrackId = "backend" | "suporte" | "infra";
+
+export type TileKind = "projeto" | "experiencia" | "certificacao" | "carta";
+
+/**
+ * Uma "prova" dentro de uma trilha. Não repete os textos longos: aponta
+ * (`ref`) para o item que já existe em curatedProjects, experiences,
+ * certifications ou recommendation, e só acrescenta a frase curta do tile
+ * e o nome da arte de capa.
+ */
+export interface TrackItem {
+  kind: TileKind;
+  /** repoName (projeto), company (experiência), title (certificação) ou "carta". */
+  ref: string;
+  /** Nome curto no tile, quando o título original é longo demais. */
+  title?: string;
+  /**
+   * Experiência usada em mais de uma trilha: quais destaques (índices de
+   * `highlights`) cada trilha mostra no painel. Sem isso, mostra todos.
+   */
+  highlights?: number[];
+  /** Uma frase curta, sempre visível na legenda do tile. */
+  line: string;
+  cover: string;
+}
+
+export interface Track {
+  id: TrackId;
+  name: string;
+  scope: string;
+  /** O fato verificável mais forte da trilha, mostrado na capa da primeira tela. */
+  proof: string;
+  /** Currículo desta trilha, quando existe um. */
+  resume?: ResumeFile;
+  items: TrackItem[];
+}

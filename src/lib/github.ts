@@ -27,17 +27,6 @@ export interface GithubRepoSummary {
  * O cache com "next.revalidate" é o que ativa o ISR: o Next guarda o
  * resultado e só busca de novo no GitHub depois que o tempo expira.
  */
-/**
- * O GitHub gera automaticamente uma imagem de preview (1200x630) para cada
- * repositório público — é a mesma imagem que aparece quando você cola o
- * link de um repo no Twitter/Slack/WhatsApp. Não é uma API oficial
- * documentada, mas é estável e usada amplamente; por isso usamos ela como
- * capa dos cards de projeto em vez de hospedar/gerar imagens próprias.
- */
-export function getRepoPreviewImageUrl(repoName: string): string {
-  return `https://opengraph.githubassets.com/1/${personal.githubUsername}/${repoName}`;
-}
-
 export async function getGithubRepos(): Promise<GithubRepoSummary[]> {
   // A API do GitHub libera só 60 requisições/hora por IP sem autenticação —
   // e como a Vercel roda o servidor em IPs compartilhados com muitos outros

@@ -15,7 +15,7 @@ interface ContactEmailData {
   message: string;
 }
 
-const ACCENT = "#3b82f6";
+const ACCENT = "#2c59e0";
 const INK = "#0d1117";
 const MUTED = "#57606a";
 const BORDER = "#e6edf3";

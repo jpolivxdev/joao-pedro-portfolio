@@ -10,11 +10,12 @@ import type {
   Recommendation,
   ResumeFile,
   Skill,
+  Track,
 } from "@/types/profile";
 
 export const personal = {
   name: "João Pedro Oliva Fogaça",
-  headline: "Desenvolvedor Backend Jr | Node.js • TypeScript • APIs REST • MongoDB",
+  headline: "Backend, Suporte Técnico e Infra/Telecom Jr",
   short:
     "Estudante de Análise e Desenvolvimento de Sistemas na FACENS (5º semestre), buscando minha primeira vaga efetiva em TI.",
   about:
@@ -151,6 +152,14 @@ export const curatedProjects: CuratedProject[] = [
     status: "Projeto pessoal",
     extraLinks: [{ label: "Ver projeto no ar", href: "https://vida-app-2.vercel.app" }],
   },
+  {
+    repoName: "api-chamados-suporte",
+    title: "API de Chamados de Suporte",
+    description:
+      "API REST para gestão de chamados técnicos com diferentes níveis de acesso (Admin, Técnico e Cliente), com autenticação JWT.",
+    stack: ["Java", "Spring Boot", "JWT", "JPA/Hibernate"],
+    status: "Projeto acadêmico",
+  },
 ];
 
 export const recommendation: Recommendation = {
@@ -162,8 +171,110 @@ export const recommendation: Recommendation = {
   pdfHref: "/carta/carta-recomendacao-guilherme-vigati.pdf",
 };
 
-export const metrics = [
-  { label: "Anos na Huawei (Telecom)", value: 2, suffix: "+" },
-  { label: "Projetos desenvolvidos", value: 5, suffix: "+" },
-  { label: "Certificações técnicas", value: 3, suffix: "" },
+// As três trilhas de vaga, com peso igual. Cada item aponta (ref) para um
+// dado que já existe acima; `line` é a frase curta do tile e `cover` o nome
+// da arte desenhada em components/catalog/Covers.tsx.
+export const tracks: Track[] = [
+  {
+    id: "backend",
+    name: "Backend Jr",
+    scope: "Node.js, TypeScript, APIs REST e bancos de dados",
+    proof: "FinTrack no ar, com Swagger",
+    resume: resumes[0],
+    items: [
+      {
+        kind: "projeto",
+        ref: "fintrack",
+        line: "API em NestJS com testes de segurança e de carga, e demo no ar.",
+        cover: "fintrack",
+      },
+      {
+        kind: "projeto",
+        ref: "openmindfrontback",
+        line: "MVP em produção, feito em equipe, com artigo em formato IEEE.",
+        cover: "openmind",
+      },
+      {
+        kind: "projeto",
+        ref: "gestorfinanceiropessoal",
+        line: "Angular, Node e MongoDB: controle de entradas e saídas, com API REST própria.",
+        cover: "ledger",
+      },
+      {
+        kind: "projeto",
+        ref: "vida-app",
+        line: "Tarefas, finanças e metas em Angular, publicado na Vercel.",
+        cover: "planner",
+      },
+    ],
+  },
+  {
+    id: "suporte",
+    name: "Suporte Técnico Jr",
+    scope: "Atendimento ao público, suporte técnico e chamados",
+    proof: "Atendimento na IMED e API de chamados",
+    resume: resumes[1],
+    items: [
+      {
+        kind: "projeto",
+        ref: "api-chamados-suporte",
+        line: "API de chamados com papéis de Admin, Técnico e Cliente.",
+        cover: "ticket",
+      },
+      {
+        kind: "experiencia",
+        ref: "Clínica IMED Saúde",
+        line: "Atendimento ao público e gestão de contatos no CRM BLiP.",
+        cover: "bubbles",
+      },
+      {
+        kind: "experiencia",
+        ref: "Huawei Brasil — FACENS P&DC",
+        title: "Huawei P&DC",
+        highlights: [0],
+        line: "Estágio: suporte técnico a projetos de micro-ondas e 5G.",
+        cover: "wrench",
+      },
+    ],
+  },
+  {
+    id: "infra",
+    name: "Infra/Telecom",
+    scope: "Micro-ondas e 5G: estágio na Huawei, três certificações e carta de recomendação",
+    proof: "Carta da Huawei e 3 certificações",
+    items: [
+      {
+        kind: "experiencia",
+        ref: "Huawei Brasil — FACENS P&DC",
+        title: "Huawei P&DC",
+        highlights: [1, 2],
+        line: "Estágio: interface com Vivo, Claro e TIM em projetos técnicos.",
+        cover: "path-profile",
+      },
+      {
+        kind: "certificacao",
+        ref: "Redes de Transmissão por Micro-ondas",
+        line: "36 horas, parceria FACENS e Huawei.",
+        cover: "dish",
+      },
+      {
+        kind: "certificacao",
+        ref: "Conceitos de Tecnologia 5G",
+        line: "30 horas, parceria FACENS e Huawei.",
+        cover: "cells",
+      },
+      {
+        kind: "certificacao",
+        ref: "Implementação de Redes 5G",
+        line: "36 horas, parceria FACENS e Huawei.",
+        cover: "mast",
+      },
+      {
+        kind: "carta",
+        ref: "carta",
+        line: "Recomendação do Team Leader de MW e TX da Huawei.",
+        cover: "letter",
+      },
+    ],
+  },
 ];
