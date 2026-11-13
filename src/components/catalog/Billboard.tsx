@@ -1,6 +1,14 @@
 import Image from "next/image";
-import { personal, tracks } from "@/data/profile";
+import { contactLinks, personal, tracks } from "@/data/profile";
+import { GithubIcon, LinkedinIcon, MailIcon, WhatsappIcon } from "@/components/ui/icons";
 import { TrackCover } from "./Covers";
+
+const contactIcons = {
+  linkedin: LinkedinIcon,
+  github: GithubIcon,
+  email: MailIcon,
+  whatsapp: WhatsappIcon,
+};
 
 /**
  * Primeira tela: quem é (nome, foto, sinopse, disponibilidade, contato) e as
@@ -47,6 +55,28 @@ export function Billboard() {
           >
             Ver os trabalhos
           </a>
+
+          {/* Contato direto em um toque. São ícones sem texto: o nome de
+              cada um está no aria-label (leitor de tela) e na dica fluida. */}
+          <ul className="flex items-center gap-1 sm:ml-2" aria-label="Contato direto">
+            {contactLinks.map((link) => {
+              const Icon = contactIcons[link.icon];
+              return (
+                <li key={link.label}>
+                  <a
+                    href={link.href}
+                    target={link.icon === "email" ? undefined : "_blank"}
+                    rel="noopener noreferrer"
+                    aria-label={link.label}
+                    data-tip={link.label}
+                    className="grid h-11 w-11 place-items-center rounded-full text-muted transition-colors hover:bg-surface-raised hover:text-foreground"
+                  >
+                    <Icon className="h-5 w-5" />
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
 

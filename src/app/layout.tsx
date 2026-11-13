@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Big_Shoulders } from "next/font/google";
 import "./globals.css";
 import { personal } from "@/data/profile";
 import { Backdrop } from "@/components/layout/Backdrop";
+import { Providers } from "@/components/layout/Providers";
 import { themeInitScript } from "@/lib/theme";
 
 const geistSans = Geist({
@@ -71,7 +72,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <Backdrop />
-        {children}
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
