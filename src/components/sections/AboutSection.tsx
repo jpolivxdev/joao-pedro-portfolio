@@ -29,7 +29,7 @@ export function AboutSection() {
               href={recommendation.pdfHref}
               target="_blank"
               rel="noopener noreferrer"
-              className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[var(--c-light)] underline decoration-[var(--c-light)]/40 underline-offset-4 transition-colors hover:decoration-[var(--c-light)]"
+              className="mt-3 inline-flex min-h-11 items-center gap-2 text-sm font-medium text-[var(--c-ink)] underline decoration-[var(--c-ink)]/40 underline-offset-4 transition-colors hover:decoration-[var(--c-ink)]"
             >
               Ler a carta completa
               <ExternalLinkIcon className="h-3.5 w-3.5" />
@@ -53,7 +53,7 @@ export function AboutSection() {
                     skill.level === "principal" ? "border-accent text-foreground" : "border-border text-muted"
                   }`}
                 >
-                  <TechIcon name={skill.name} color="a4a9b3" className="h-3.5 w-3.5" />
+                  <TechIcon name={skill.name} color="7d8594" className="h-3.5 w-3.5" />
                   {skill.name}
                 </span>
               ))}

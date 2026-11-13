@@ -8,6 +8,7 @@
  * dezenas de abas de candidatos. Fundo escuro grafite azulado deixa as capas
  * (a única cor "grande" da página) brilharem e o resto recuar.
  */
+/* Tema escuro: o padrão. Vale sem data-theme e com data-theme="dark". */
 :root {
   --color-bg: #0b0e13;
   --color-bg-elevated: #151922;
@@ -16,34 +17,87 @@
   --color-muted: #a4a9b3;
   --color-faint: #8b919c;
   --color-border: rgba(230, 232, 236, 0.12);
+  --color-danger: #f87171;
 
   /* Único acento: azul escuro. Só para foco, ação e anel de seleção.
      Texto sobre ele é branco (5,8:1); como texto sobre o fundo usa-se a
-     versão clara (--color-accent-text). */
+     versão de texto (--color-accent-text), que muda com o tema. */
   --color-accent: #2c59e0;
   --color-accent-foreground: #ffffff;
   --color-accent-text: #8fa8ff;
   --color-accent-hover: #3a66ee;
 
+  /* Fundo: manchas de cor suaves atrás de tudo (ver .backdrop). */
+  --blob-accent: rgb(44 89 224 / 0.3);
+  --blob-coral: rgb(194 67 46 / 0.16);
+  --blob-teal: rgb(12 122 103 / 0.2);
+  --backdrop-mark: rgb(230 232 236 / 0.05);
+
+  /* Texto sobre as capas coloridas das trilhas: branco nos dois temas. */
+  --color-on-hue: #ffffff;
+
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+/* Tema claro: fundo claro levemente azulado, texto quase preto, mesmo azul
+   de destaque. Contrastes medidos sobre --color-bg: texto 16,6:1, muted
+   7,3:1, faint 5,5:1, accent-text 6,9:1. */
+:root[data-theme="light"] {
+  --color-bg: #f1f4fa;
+  --color-bg-elevated: #ffffff;
+  --color-surface-raised: #e3e8f2;
+  --color-foreground: #10141c;
+  --color-muted: #4a5261;
+  --color-faint: #5d6676;
+  --color-border: rgba(16, 20, 28, 0.14);
+  --color-danger: #b42318;
+
+  --color-accent-text: #2347c2;
+  --color-accent-hover: #2449c4;
+
+  --blob-accent: rgb(44 89 224 / 0.2);
+  --blob-coral: rgb(194 67 46 / 0.13);
+  --blob-teal: rgb(12 122 103 / 0.15);
+  --backdrop-mark: rgb(16 20 28 / 0.045);
+}
+
 /* Matizes das trilhas: cada uma pinta as capas da sua fileira. Branco sobre
-   cada fundo passa de 5:1 (índigo 6,2; coral 5,1; verde-petróleo 5,3). */
+   cada fundo passa de 5:1 (índigo 6,2; coral 5,1; verde-petróleo 5,3).
+   --c-ink é a cor de texto da trilha sobre o painel tingido: clara no tema
+   escuro, profunda no claro. */
 .hue-backend {
   --c-bg: #4651d6;
   --c-deep: #2e36a6;
   --c-light: #aab2f7;
+  --c-ink: var(--c-light);
 }
 .hue-suporte {
   --c-bg: #c2432e;
   --c-deep: #8f2d1d;
   --c-light: #f3b5a9;
+  --c-ink: var(--c-light);
 }
 .hue-infra {
   --c-bg: #0c7a67;
   --c-deep: #075446;
   --c-light: #8fdccb;
+  --c-ink: var(--c-light);
+}
+/* No claro, as trilhas descem um tom para o branco continuar legível. */
+:root[data-theme="light"] .hue-backend {
+  --c-bg: #3f49c8;
+  --c-deep: #2a3196;
+  --c-ink: var(--c-deep);
+}
+:root[data-theme="light"] .hue-suporte {
+  --c-bg: #b23a26;
+  --c-deep: #842818;
+  --c-ink: var(--c-deep);
+}
+:root[data-theme="light"] .hue-infra {
+  --c-bg: #0a6f5e;
+  --c-deep: #064c40;
+  --c-ink: var(--c-deep);
 }
 
 @theme inline {
@@ -58,6 +112,7 @@
   --color-accent-text: var(--color-accent-text);
   --color-accent-hover: var(--color-accent-hover);
   --color-border: var(--color-border);
+  --color-danger: var(--color-danger);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-display);
@@ -73,6 +128,59 @@
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+/* Fundo fixo atrás de tudo: três manchas de cor (gradientes radiais, sem
+   filtro de blur, que custa caro) e as iniciais "JP" bem grandes e
+   desfocadas. É decoração: aria-hidden e sem eventos de ponteiro. */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.backdrop .blob {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+.backdrop .blob-accent {
+  top: -22vmax;
+  left: -14vmax;
+  width: 70vmax;
+  height: 70vmax;
+  background: radial-gradient(closest-side, var(--blob-accent), transparent);
+}
+.backdrop .blob-coral {
+  top: 28vh;
+  right: -24vmax;
+  width: 62vmax;
+  height: 62vmax;
+  background: radial-gradient(closest-side, var(--blob-coral), transparent);
+}
+.backdrop .blob-teal {
+  bottom: -30vmax;
+  left: 12vw;
+  width: 68vmax;
+  height: 68vmax;
+  background: radial-gradient(closest-side, var(--blob-teal), transparent);
+}
+.backdrop .mark {
+  position: absolute;
+  top: 6vh;
+  right: -2vw;
+  font-family: var(--font-display), Impact, sans-serif;
+  font-weight: 900;
+  font-size: min(78vw, 70vh);
+  line-height: 0.8;
+  letter-spacing: -0.02em;
+  color: var(--backdrop-mark);
+  filter: blur(6px);
+  user-select: none;
 }
 
 body {
@@ -167,6 +275,7 @@ textarea {
   width: 100%;
   height: var(--tile-h);
   background: var(--c-bg);
+  color: var(--color-on-hue);
   overflow: hidden;
 }
 /* Legenda sempre visível: tipo, frase e a ação. Não depende de hover, então
@@ -233,6 +342,7 @@ textarea {
   overflow: hidden;
   border-radius: 10px;
   background: var(--c-bg);
+  color: var(--color-on-hue);
   transition:
     transform 0.34s var(--ease-out),
     opacity 0.26s var(--ease-out),

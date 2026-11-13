@@ -240,7 +240,7 @@ function Detail({ tile, onClose }: { tile: TileData; onClose: () => void }) {
           <ul className="mt-4 grid max-w-[65ch] gap-2 text-foreground/90">
             {tile.bullets.map((b) => (
               <li key={b} className="flex gap-3 leading-relaxed">
-                <span aria-hidden="true" className="mt-2.5 h-1 w-3 shrink-0 rounded-full bg-[var(--c-light)]" />
+                <span aria-hidden="true" className="mt-2.5 h-1 w-3 shrink-0 rounded-full bg-[var(--c-ink)]" />
                 {b}
               </li>
             ))}
@@ -256,7 +256,7 @@ function Detail({ tile, onClose }: { tile: TileData; onClose: () => void }) {
                 key={chip}
                 className="inline-flex items-center gap-1.5 rounded-full border border-border px-3 py-1 text-sm text-foreground"
               >
-                <TechIcon name={chip} color="a4a9b3" className="h-3.5 w-3.5" />
+                <TechIcon name={chip} color="7d8594" className="h-3.5 w-3.5" />
                 {chip}
               </li>
             ))}

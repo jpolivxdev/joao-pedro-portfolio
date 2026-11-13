@@ -4,6 +4,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { ThemeToggle } from "./ThemeToggle";
 
 const navItems = [
   { label: "Backend", href: "#trilha-backend" },
@@ -56,7 +57,9 @@ export function Header() {
             JP<span className="text-accent-text">.</span>dev
           </a>
 
-          <ul className="hidden sm:flex items-center gap-6">
+          <ThemeToggle className="order-last ml-4 hidden sm:inline-flex" />
+
+          <ul className="hidden sm:flex items-center gap-6 ml-auto">
             {navItems.map((item) => {
               const isActive = activeId === item.href.slice(1);
               return (
@@ -123,6 +126,9 @@ export function Header() {
                   </li>
                 );
               })}
+              <li className="px-1 py-2">
+                <ThemeToggle />
+              </li>
             </motion.ul>
           )}
         </AnimatePresence>

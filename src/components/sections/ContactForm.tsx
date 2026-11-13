@@ -155,7 +155,7 @@ export function ContactForm() {
         {status === "success" && (
           <p className="text-sm text-accent-text">Mensagem enviada! Retorno em breve.</p>
         )}
-        {status === "error" && <p className="text-sm text-red-400">{errorMessage}</p>}
+        {status === "error" && <p className="text-sm text-danger">{errorMessage}</p>}
       </div>
     </form>
   );

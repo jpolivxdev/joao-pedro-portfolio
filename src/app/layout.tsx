@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Big_Shoulders } from "next/font/google";
 import "./globals.css";
 import { personal } from "@/data/profile";
+import { Backdrop } from "@/components/layout/Backdrop";
+import { themeInitScript } from "@/lib/theme";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,11 +59,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
+    // suppressHydrationWarning: o script abaixo põe data-theme no <html>
+    // antes do React carregar, então o atributo difere do HTML do servidor.
     <html
       lang="pt-BR"
       className={`${geistSans.variable} ${geistMono.variable} ${display.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
       <body className="min-h-full flex flex-col bg-background text-foreground">
+        <Backdrop />
         {children}
       </body>
     </html>
