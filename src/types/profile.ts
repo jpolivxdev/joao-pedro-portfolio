@@ -67,10 +67,15 @@ export interface TrackItem {
   /** Nome curto no tile, quando o título original é longo demais. */
   title?: string;
   /**
-   * Experiência usada em mais de uma trilha: quais destaques (índices de
-   * `highlights`) cada trilha mostra no painel. Sem isso, mostra todos.
+   * Experiência que serve a mais de uma trilha: os destaques (índices de
+   * `highlights`) agrupados por assunto no painel. Sem isso, lista todos.
    */
-  highlights?: number[];
+  highlightGroups?: { label: string; highlights: number[] }[];
+  /**
+   * O detalhe deste item mora em outra trilha: aqui ele é só uma
+   * referência que leva até lá, para a informação existir uma vez só.
+   */
+  seeAlso?: TrackId;
   /** Uma frase curta, sempre visível na legenda do tile. */
   line: string;
   cover: string;

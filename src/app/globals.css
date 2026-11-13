@@ -354,7 +354,7 @@ textarea {
   display: flex;
   gap: 12px;
   overflow-x: auto;
-  padding: 28px 24px 36px;
+  padding: 28px 24px 20px;
   margin-inline: -24px;
   scroll-snap-type: x proximity;
   scroll-padding-inline: 24px;
@@ -373,6 +373,27 @@ textarea {
   display: flex;
   flex: 0 0 auto;
   scroll-snap-align: start;
+}
+
+/* Degradê na borda direita enquanto ainda há tiles para ver (carrossel). */
+.rail[data-end="false"] {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent);
+  mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent);
+}
+
+/* No computador a fileira vira grade: --n colunas iguais (o número de
+   tiles), preenchendo a largura inteira, sem sobra e sem corte. */
+@media (min-width: 1024px) {
+  .rail {
+    --tile-w: 100%;
+    --tile-h: 188px;
+    display: grid;
+    grid-template-columns: repeat(var(--n), minmax(0, 1fr));
+    gap: 16px;
+    overflow: visible;
+    margin-inline: 0;
+    padding: 28px 0 20px;
+  }
 }
 
 @media (hover: none) {

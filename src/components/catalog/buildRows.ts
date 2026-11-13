@@ -19,14 +19,23 @@ const KIND_LABEL = {
 
 // Transforma as referências de data/profile.ts em dados prontos para a
 // parede. Nenhum texto longo é copiado: tudo vem dos itens originais.
+// Sem acentos no id ("clinica", não "cl-nica"): ele vira âncora do DOM.
+function tileId(trackId: string, ref: string) {
+  return `${trackId}-${ref}`
+    .normalize("NFD")
+    .replace(/\p{Diacritic}/gu, "")
+    .replace(/[^a-z0-9-]+/gi, "-")
+    .toLowerCase();
+}
+
 function buildTile(trackId: string, item: TrackItem, repos: GithubRepoSummary[]): TileData {
+  const target = item.seeAlso ? tracks.find((t) => t.id === item.seeAlso) : undefined;
   const base = {
-    // Sem acentos no id ("clinica", não "cl-nica"): ele vira âncora do DOM.
-    id: `${trackId}-${item.ref}`
-      .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
-      .replace(/[^a-z0-9-]+/gi, "-")
-      .toLowerCase(),
+    id: tileId(trackId, item.ref),
+    // Referência: o painel deste item está na outra trilha.
+    seeAlso: target
+      ? { rowId: target.id, tileId: tileId(target.id, item.ref), label: `Ver em ${target.name}` }
+      : undefined,
     kind: item.kind,
     kindLabel: KIND_LABEL[item.kind],
     line: item.line,
@@ -69,10 +78,11 @@ function buildTile(trackId: string, item: TrackItem, repos: GithubRepoSummary[])
       title: item.title ?? experience.company,
       meta: `${experience.role} · ${experience.period}`,
       paragraphs: [experience.description],
-      // A mesma experiência em duas trilhas mostra destaques diferentes em cada uma.
-      bullets: item.highlights
-        ? item.highlights.map((i) => experience.highlights[i]).filter((h): h is string => Boolean(h))
-        : experience.highlights,
+      bullets: item.highlightGroups ? [] : experience.highlights,
+      bulletGroups: item.highlightGroups?.map((group) => ({
+        label: group.label,
+        items: group.highlights.map((i) => experience.highlights[i]).filter((h): h is string => Boolean(h)),
+      })),
     };
   }
 

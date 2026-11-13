@@ -1,6 +1,6 @@
-import { personal, recommendation, resumes, skills } from "@/data/profile";
+import { personal, recommendation, skills } from "@/data/profile";
 import { TechIcon } from "@/components/ui/TechIcon";
-import { DownloadIcon, ExternalLinkIcon } from "@/components/ui/icons";
+import { ExternalLinkIcon } from "@/components/ui/icons";
 
 export function AboutSection() {
   const principal = skills.filter((s) => s.level === "principal");
@@ -60,22 +60,6 @@ export function AboutSection() {
             </dd>
           </div>
 
-          <div>
-            <dt className="text-sm font-medium text-muted">Currículos</dt>
-            <dd className="mt-1 flex flex-col">
-              {resumes.map((resume) => (
-                <a
-                  key={resume.href}
-                  href={resume.href}
-                  download
-                  className="inline-flex min-h-11 w-fit items-center gap-2 text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent-text"
-                >
-                  <DownloadIcon className="h-4 w-4" />
-                  {resume.label}
-                </a>
-              ))}
-            </dd>
-          </div>
         </dl>
       </div>
     </section>
