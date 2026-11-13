@@ -2,6 +2,7 @@
 // envio) e de um evento onSubmit — nada disso existe em Server Components.
 
 import { useState, type FormEvent } from "react";
+import { LockIcon } from "@/components/ui/icons";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -140,12 +141,15 @@ export function ContactForm() {
           type="submit"
           disabled={status === "sending" || !consent}
           aria-describedby={consent ? undefined : "dica-envio"}
-          className="min-h-11 rounded-md bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:opacity-50"
+          className="inline-flex min-h-11 items-center gap-2 rounded-full border border-transparent bg-accent px-6 py-2.5 text-sm font-semibold text-accent-foreground transition-colors hover:bg-accent-hover disabled:cursor-not-allowed disabled:border-border disabled:bg-surface-raised disabled:text-muted"
         >
+          {/* Travado: cadeado e cores neutras (com contraste), em vez de um
+              botão azul desbotado que parece quebrado. */}
+          {!consent && <LockIcon className="h-4 w-4" />}
           {status === "sending" ? "Enviando..." : "Enviar mensagem"}
         </button>
         {!consent && (
-          <p id="dica-envio" className="text-sm text-muted">
+          <p id="dica-envio" className="text-sm text-foreground">
             Marque a autorização acima para liberar o envio.
           </p>
         )}

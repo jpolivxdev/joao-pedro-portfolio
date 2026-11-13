@@ -1,5 +1,6 @@
 import { personal, recommendation, skills } from "@/data/profile";
 import { TechIcon } from "@/components/ui/TechIcon";
+import { ExpandableText } from "@/components/ui/ExpandableText";
 import { ExternalLinkIcon } from "@/components/ui/icons";
 
 export function AboutSection() {
@@ -14,7 +15,7 @@ export function AboutSection() {
 
       <div className="mt-8 grid gap-12 lg:grid-cols-12">
         <div className="flex flex-col gap-10 lg:col-span-7">
-          <p className="max-w-[65ch] text-lg leading-relaxed text-foreground/90">{personal.about}</p>
+          <ExpandableText text={personal.about} className="max-w-[65ch] text-lg leading-relaxed text-foreground/90" />
 
           {/* A prova mais forte fecha a leitura: o trecho da carta, no mesmo
               tom de painel da trilha Infra/Telecom de onde ela vem. */}

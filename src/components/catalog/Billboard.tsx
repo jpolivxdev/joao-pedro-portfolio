@@ -23,7 +23,7 @@ export function Billboard() {
       aria-label="Apresentação"
       className="mx-auto grid max-w-[1440px] items-center gap-6 px-6 pb-4 pt-6 sm:gap-10 sm:pt-10 lg:grid-cols-12 lg:gap-12 lg:pt-14"
     >
-      <div className="lg:col-span-6">
+      <Parallax speed={0.06} className="max-lg:transform-none! lg:col-span-6">
         <div className="flex items-center gap-4">
           <Image
             src={personal.avatarSrc}
@@ -36,7 +36,6 @@ export function Billboard() {
           <p className="text-sm text-muted">{personal.location}</p>
         </div>
 
-        <Parallax speed={0.08}>
           {/* O nome entra palavra por palavra na primeira carga. É animação
               de CSS (não espera o JavaScript), então o texto pinta logo. */}
           <h1 className="display mt-4 text-[clamp(2.75rem,9vw,6rem)] sm:mt-6">
@@ -50,7 +49,6 @@ export function Billboard() {
               </Fragment>
             ))}
           </h1>
-        </Parallax>
 
         <p className="mt-4 max-w-[48ch] text-base leading-relaxed text-foreground/90 sm:mt-6 sm:text-lg">{personal.short}</p>
 
@@ -94,9 +92,9 @@ export function Billboard() {
             })}
           </ul>
         </div>
-      </div>
+      </Parallax>
 
-      <Parallax speed={-0.06} className="covers grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:col-span-6">
+      <Parallax speed={-0.06} className="covers max-sm:transform-none! grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3 lg:col-span-6">
         {tracks.map((track) => (
           <a
             key={track.id}
