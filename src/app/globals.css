@@ -395,6 +395,40 @@ textarea {
   mask-image: linear-gradient(to right, #000 calc(100% - 56px), transparent);
 }
 
+/* Carrossel com profundidade (celular e tablet): o tile que está no meio
+   fica de frente; os vizinhos giram um pouco e recuam, como capas numa
+   estante. A animação é guiada pela própria rolagem (animation-timeline:
+   view), então acompanha o dedo e roda fora da thread principal: só
+   transform e opacity, sem JavaScript. Navegador sem suporte, ou com
+   "reduzir movimento" ligado, mostra o carrossel plano. */
+@supports (animation-timeline: view()) {
+  @media (max-width: 1023px) and (prefers-reduced-motion: no-preference) {
+    .rail {
+      perspective: 900px;
+    }
+    .rail > li {
+      animation: tile-depth linear both;
+      animation-timeline: view(inline);
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+@keyframes tile-depth {
+  0% {
+    transform: rotateY(-24deg) scale(0.88);
+    opacity: 0.6;
+  }
+  38%,
+  62% {
+    transform: none;
+    opacity: 1;
+  }
+  100% {
+    transform: rotateY(24deg) scale(0.88);
+    opacity: 0.6;
+  }
+}
+
 /* No computador a fileira vira grade: --n colunas iguais (o número de
    tiles), preenchendo a largura inteira, sem sobra e sem corte. */
 @media (min-width: 1024px) {
