@@ -64,7 +64,7 @@ export function Billboard() {
             Falar comigo
           </a>
           <a
-            href="#trilhas"
+            href="#destaques"
             className="inline-flex min-h-11 items-center rounded-full border border-border px-6 py-3 text-sm font-medium text-foreground transition-colors hover:bg-surface-raised"
           >
             Ver os trabalhos

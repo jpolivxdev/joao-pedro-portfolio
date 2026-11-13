@@ -270,7 +270,7 @@ function Bullets({ items }: { items: string[] }) {
   );
 }
 
-function Detail({ tile, onClose }: { tile: TileData; onClose: () => void }) {
+export function Detail({ tile, onClose }: { tile: TileData; onClose: () => void }) {
   return (
     // Vidro tingido com o matiz da fileira: tile aberto e painel leem como
     // um objeto só. "swap-in" assenta a troca de conteúdo em 0,16 s.

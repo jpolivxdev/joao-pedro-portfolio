@@ -268,6 +268,33 @@ textarea {
   }
 }
 
+/* Cards de "Projetos em destaque": mesmo gesto de hover dos tiles. */
+.featured-card {
+  cursor: pointer;
+  transition:
+    transform 0.26s var(--ease-out),
+    box-shadow 0.26s var(--ease-out);
+}
+.featured-card[aria-expanded="true"] {
+  box-shadow:
+    0 0 0 2px var(--color-accent),
+    var(--glass-shadow);
+}
+.featured-card:focus-visible {
+  outline-offset: 4px;
+}
+@media (hover: hover) {
+  .featured-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Imagem que só existe num dos temas (print claro ou escuro). */
+:root[data-theme="light"] .theme-dark-only,
+:root:not([data-theme="light"]) .theme-light-only {
+  display: none;
+}
+
 /* ---------- Menu: gota e onda ---------- */
 
 /* A gota é o marcador do item ativo; o motion anima a posição e a largura

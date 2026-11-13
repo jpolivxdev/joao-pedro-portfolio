@@ -7,6 +7,7 @@ import type {
   ContactLink,
   CuratedProject,
   ExperienceItem,
+  FeaturedProject,
   Recommendation,
   ResumeFile,
   Skill,
@@ -279,5 +280,76 @@ export const tracks: Track[] = [
         cover: "letter",
       },
     ],
+  },
+];
+
+// Projetos em destaque. Regra: nada de número, cliente ou resultado que não
+// exista. A nexo está em fase de testes e o CRM em construção (Fase 1); os
+// dados que aparecem nos prints são fictícios, da demonstração.
+export const featuredProjects: FeaturedProject[] = [
+  {
+    id: "nexo",
+    title: "nexo",
+    status: "Em fase de testes",
+    line: "Estúdio de tecnologia para pequenos negócios, que fundei com mais três sócios.",
+    meta: "Em fase de testes · demonstração pública",
+    paragraphs: [
+      "A nexo é um estúdio de tecnologia para pequenos negócios que fundei com mais três sócios. A página apresenta o produto e leva a uma demonstração aberta, sem cadastro.",
+    ],
+    groups: [
+      {
+        label: "O que a demonstração mostra",
+        items: [
+          "Um simulador de agendamento pelo WhatsApp: o cliente marca o horário sozinho",
+          "O painel do dono, com agenda, clientes e conversas num lugar só, pensado para o celular",
+          "Tudo com um negócio e clientes fictícios: nada é salvo e nenhuma mensagem sai",
+        ],
+      },
+    ],
+    stack: [],
+    links: [{ label: "Abrir a demonstração", href: "https://nexo-demo-iota.vercel.app" }],
+    image: "/projetos/nexo-landing.png",
+    imageAlt:
+      "Página inicial da nexo: o título \"Seu cliente marca horário sozinho pelo WhatsApp\", os botões Ver a demonstração e Entrar no painel, e um celular mostrando o painel de exemplo.",
+    caption: "Página da nexo. A demonstração usa um negócio e clientes fictícios.",
+    shape: "wide",
+  },
+  {
+    id: "nexo-crm",
+    title: "nexo CRM",
+    status: "Em construção",
+    line: "Atendimento e agendamento pelo WhatsApp com CRM para pequenos negócios.",
+    meta: "Em construção · Fase 1, piloto em preparação",
+    paragraphs: [
+      "Sistema de atendimento e agendamento pelo WhatsApp com um CRM simples por trás, para pequenos negócios. Atende vários negócios na mesma base, com os dados de cada um isolados no banco.",
+    ],
+    groups: [
+      {
+        label: "O que já existe",
+        items: [
+          "API e worker em NestJS, painel do dono em React + Vite (celular primeiro, PWA) e um pacote de regras puras, sem banco nem framework",
+          "Robô de agendamento exercitado por um simulador de WhatsApp no terminal; a integração real com a Meta ainda não foi feita",
+          "Painel com Hoje, Agenda, Conversas, Clientes e Etapas, nos temas claro e escuro",
+        ],
+      },
+      {
+        label: "Decisões técnicas",
+        items: [
+          "Isolamento por negócio com Row Level Security forçado no PostgreSQL: sem informar o negócio, o banco não devolve nenhuma linha",
+          "Fila de mensagens no próprio Postgres (pg-boss), sem Redis: um serviço a menos para pagar e cuidar",
+          "Monólito modular em vez de microsserviços, com as regras de negócio num pacote puro e testável",
+          "Sessão guardada no servidor em vez de JWT: trocar a senha derruba todas as sessões",
+          "O banco recusa dois horários ativos sobrepostos para a mesma profissional",
+        ],
+      },
+    ],
+    stack: ["NestJS", "Prisma", "PostgreSQL", "React", "TypeScript"],
+    links: [{ label: "Ver repositório", href: "https://github.com/jpolivxdev/nexo-crm" }],
+    image: "/projetos/nexo-crm-hoje-escuro.png",
+    imageLight: "/projetos/nexo-crm-hoje-claro.png",
+    imageAlt:
+      "Painel do nexo CRM na tela Hoje: quatro cartões com horários, clientes esperando resposta, tarefas a fazer e atendimentos realizados, um gráfico dos últimos 30 dias e a lista de clientes esperando resposta.",
+    caption: "Tela Hoje do painel. Dados fictícios, da demonstração.",
+    shape: "tall",
   },
 ];

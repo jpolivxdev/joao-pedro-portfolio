@@ -91,3 +91,26 @@ export interface Track {
   resume?: ResumeFile;
   items: TrackItem[];
 }
+
+/** Projeto em destaque (seção logo depois da abertura), com print real. */
+export interface FeaturedProject {
+  id: string;
+  title: string;
+  /** Situação real do projeto, sem enfeite (ex.: "Em construção"). */
+  status: string;
+  /** Uma frase curta no card. */
+  line: string;
+  meta: string;
+  paragraphs: string[];
+  groups: { label: string; items: string[] }[];
+  stack: string[];
+  links: { label: string; href: string }[];
+  /** Print do tema escuro; `imageLight`, quando existe, entra no tema claro. */
+  image: string;
+  imageLight?: string;
+  imageAlt: string;
+  /** Legenda do print (ex.: avisar que os dados são fictícios). */
+  caption: string;
+  /** "wide" ocupa a coluna larga do mosaico; "tall", a coluna alta. */
+  shape: "wide" | "tall";
+}
