@@ -100,7 +100,6 @@ export function Billboard() {
             key={track.id}
             href={`#trilha-${track.id}`}
             className={`track-cover hue-${track.id} flex min-h-16 sm:block sm:aspect-[3/4]`}
-            aria-label={`${track.name}: ${track.proof}`}
           >
             {/* No celular a faixa é baixa: o desenho aparece inteiro (meet).
                 Do tablet para cima a capa é alta e o desenho preenche (slice). */}
