@@ -336,6 +336,20 @@ textarea {
   pointer-events: none;
 }
 
+/* Nome da primeira tela: cada palavra sobe e acende, uma depois da outra
+   (--i é a posição da palavra). Cerca de 1 s no total. */
+.name-word {
+  display: inline-block;
+  animation: word-in 0.55s var(--ease-out) both;
+  animation-delay: calc(var(--i) * 0.13s);
+}
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.3em);
+  }
+}
+
 /* Troca de conteúdo do painel: começa a 75% e assenta rápido, para não
    parecer carregamento. */
 .swap-in {

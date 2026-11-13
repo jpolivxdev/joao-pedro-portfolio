@@ -1,6 +1,7 @@
 import { getGithubRepos } from "@/lib/github";
 import { buildRows } from "./buildRows";
 import { TrackRow } from "./TrackRow";
+import { Reveal } from "@/components/ui/Reveal";
 
 // Server Component assíncrono: busca os repositórios do GitHub no servidor
 // (com cache ISR de 1h) e entrega às fileiras só dados simples e serializáveis.
@@ -11,7 +12,9 @@ export async function CatalogWall() {
   return (
     <div id="trilhas" className="mx-auto flex max-w-[1440px] scroll-mt-20 flex-col gap-16 px-6 pt-14 sm:gap-20">
       {rows.map((row) => (
-        <TrackRow key={row.id} row={row} />
+        <Reveal key={row.id}>
+          <TrackRow row={row} />
+        </Reveal>
       ))}
     </div>
   );
