@@ -9,7 +9,7 @@ export async function CatalogWall() {
   const rows = buildRows(repos);
 
   return (
-    <div id="trilhas" className="mx-auto flex max-w-[1440px] scroll-mt-20 flex-col gap-10 px-6 pt-10">
+    <div id="trilhas" className="mx-auto flex max-w-[1440px] scroll-mt-20 flex-col gap-16 px-6 pt-14 sm:gap-20">
       {rows.map((row) => (
         <TrackRow key={row.id} row={row} />
       ))}

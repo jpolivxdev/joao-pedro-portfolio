@@ -33,6 +33,13 @@
   --blob-teal: rgb(12 122 103 / 0.2);
   --backdrop-mark: rgb(230 232 236 / 0.05);
 
+  /* Vidro: fundo translúcido (nunca abaixo de 55% de cobertura), borda,
+     brilho interno de 1px no topo e sombra suave. */
+  --glass-bg: rgb(21 25 34 / 0.62);
+  --glass-border: rgb(230 232 236 / 0.1);
+  --glass-highlight: rgb(255 255 255 / 0.14);
+  --glass-shadow: 0 20px 44px -22px rgb(0 0 0 / 0.7);
+
   /* Texto sobre as capas coloridas das trilhas: branco nos dois temas. */
   --color-on-hue: #ffffff;
 
@@ -59,8 +66,12 @@
   --blob-coral: rgb(194 67 46 / 0.13);
   --blob-teal: rgb(12 122 103 / 0.15);
   --backdrop-mark: rgb(16 20 28 / 0.045);
-}
 
+  --glass-bg: rgb(255 255 255 / 0.66);
+  --glass-border: rgb(16 20 28 / 0.1);
+  --glass-highlight: rgb(255 255 255 / 0.95);
+  --glass-shadow: 0 20px 44px -24px rgb(30 50 110 / 0.3);
+}
 /* Matizes das trilhas: cada uma pinta as capas da sua fileira. Branco sobre
    cada fundo passa de 5:1 (índigo 6,2; coral 5,1; verde-petróleo 5,3).
    --c-ink é a cor de texto da trilha sobre o painel tingido: clara no tema
@@ -214,6 +225,127 @@ textarea {
   caret-color: var(--color-accent-text);
 }
 
+/* ---------- Vidro ---------- */
+
+/* .glass tem desfoque de fundo: use em poucos elementos grandes (header,
+   painéis, menu). .glass-lite é só translúcido, para os muitos tiles. */
+.glass,
+.glass-lite {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-highlight),
+    var(--glass-shadow);
+}
+.glass {
+  -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  backdrop-filter: blur(18px) saturate(1.5);
+}
+/* Painel tingido com o matiz da trilha (detalhe do tile, citação da carta). */
+.glass-hue {
+  background: color-mix(in srgb, var(--c-deep) 22%, var(--glass-bg));
+}
+/* Sem suporte a backdrop-filter, ou com "reduzir transparência" ligado no
+   sistema: os cards ficam sólidos. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass,
+  .glass-lite {
+    background: var(--color-bg-elevated);
+  }
+  .glass-hue {
+    background: color-mix(in srgb, var(--c-deep) 22%, var(--color-bg-elevated));
+  }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass,
+  .glass-lite {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--color-bg-elevated);
+  }
+  .glass-hue {
+    background: color-mix(in srgb, var(--c-deep) 22%, var(--color-bg-elevated));
+  }
+}
+
+/* ---------- Menu: gota e onda ---------- */
+
+/* A gota é o marcador do item ativo; o motion anima a posição e a largura
+   dela entre um item e outro (layoutId). */
+.gota {
+  position: absolute;
+  inset: 4px 0;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.25);
+}
+
+/* Onda curta no toque ou clique (ver lib/ripple.ts). */
+.ripple-host {
+  position: relative;
+  overflow: hidden;
+}
+.ripple-wave {
+  position: absolute;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.22;
+  transform: scale(0);
+  pointer-events: none;
+  animation: ripple 0.45s var(--ease-out) forwards;
+}
+@keyframes ripple {
+  to {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+/* ---------- Dica fluida ---------- */
+
+.tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 70;
+  height: 32px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--color-foreground);
+  color: var(--color-bg);
+  font-size: 13px;
+  font-weight: 500;
+  pointer-events: none;
+  box-shadow: 0 10px 24px -10px rgb(0 0 0 / 0.5);
+}
+.tooltip > span {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  white-space: nowrap;
+}
+.tooltip-measure {
+  position: fixed;
+  top: -100px;
+  left: 0;
+  visibility: hidden;
+  white-space: nowrap;
+  font-size: 13px;
+  font-weight: 500;
+  pointer-events: none;
+}
+
+/* Troca de conteúdo do painel: começa a 75% e assenta rápido, para não
+   parecer carregamento. */
+.swap-in {
+  animation: swap-in 0.16s ease-out;
+}
+@keyframes swap-in {
+  from {
+    opacity: 0.75;
+  }
+}
 /* ---------- A parede: fileiras, tiles e painel de detalhe ---------- */
 
 .rail {
@@ -258,9 +390,10 @@ textarea {
   flex-direction: column;
   flex: 1;
   width: var(--tile-w);
-  border-radius: 10px;
+  border-radius: 18px;
   overflow: hidden;
-  background: var(--color-bg-elevated);
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
   color: inherit;
   text-align: left;
   cursor: pointer;
@@ -284,9 +417,8 @@ textarea {
   display: flex;
   flex: 1;
   flex-direction: column;
-  gap: 6px;
-  padding: 12px;
-  background: var(--color-bg-elevated);
+  gap: 8px;
+  padding: 16px;
 }
 .tile .peek > :last-child {
   margin-top: auto;
@@ -340,7 +472,7 @@ textarea {
 .track-cover {
   position: relative;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 18px;
   background: var(--c-bg);
   color: var(--color-on-hue);
   transition:

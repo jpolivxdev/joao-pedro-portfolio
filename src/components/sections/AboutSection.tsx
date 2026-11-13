@@ -18,7 +18,7 @@ export function AboutSection() {
 
           {/* A prova mais forte fecha a leitura: o trecho da carta, no mesmo
               tom de painel da trilha Infra/Telecom de onde ela vem. */}
-          <figure className="hue-infra rounded-xl bg-[color-mix(in_srgb,var(--c-deep)_24%,var(--color-bg-elevated))] p-6 sm:p-8">
+          <figure className="hue-infra glass glass-hue rounded-3xl p-6 sm:p-10">
             <blockquote className="max-w-[65ch] text-lg leading-relaxed text-foreground">
               “{recommendation.excerpt}”
             </blockquote>

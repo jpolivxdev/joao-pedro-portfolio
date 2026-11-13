@@ -133,6 +133,7 @@ export function TrackRow({ row }: { row: RowData }) {
                 type="button"
                 onClick={() => scrollRail(-1)}
                 aria-label={`Rolar ${row.name} para a esquerda`}
+                data-tip="Anterior"
                 className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-surface-raised"
               >
                 <ChevronIcon direction="left" className="h-4 w-4" />
@@ -141,6 +142,7 @@ export function TrackRow({ row }: { row: RowData }) {
                 type="button"
                 onClick={() => scrollRail(1)}
                 aria-label={`Rolar ${row.name} para a direita`}
+                data-tip="Próximo"
                 className="grid h-11 w-11 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-surface-raised"
               >
                 <ChevronIcon direction="right" className="h-4 w-4" />
@@ -202,7 +204,7 @@ function Detail({ tile, onClose }: { tile: TileData; onClose: () => void }) {
   return (
     // O painel mistura um pouco do matiz da fileira no fundo: tile aberto e
     // painel leem como um objeto só.
-    <div className="mb-2 grid gap-8 rounded-xl bg-[color-mix(in_srgb,var(--c-deep)_24%,var(--color-bg-elevated))] p-6 sm:p-8 lg:grid-cols-12">
+    <div className="glass glass-hue mb-2 grid gap-8 rounded-3xl p-6 sm:p-10 lg:grid-cols-12">
       <div className="lg:col-span-8">
         <div className="flex items-start justify-between gap-4">
           <div>
@@ -215,6 +217,7 @@ function Detail({ tile, onClose }: { tile: TileData; onClose: () => void }) {
             type="button"
             onClick={onClose}
             aria-label="Fechar detalhes"
+            data-tip="Fechar"
             className="grid h-11 w-11 shrink-0 place-items-center rounded-full border border-border text-foreground transition-colors hover:bg-surface-raised"
           >
             <CloseIcon className="h-4 w-4" />
