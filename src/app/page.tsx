@@ -2,8 +2,11 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { Billboard } from "@/components/catalog/Billboard";
 import { CatalogWall } from "@/components/catalog/CatalogWall";
+import { FeaturedSection } from "@/components/catalog/FeaturedSection";
+import { featuredProjects } from "@/data/profile";
 import { AboutSection } from "@/components/sections/AboutSection";
 import { ContactSection } from "@/components/sections/ContactSection";
+import { Reveal } from "@/components/ui/Reveal";
 
 // A página é uma parede de catálogo: a capa apresenta a pessoa e as três
 // trilhas; cada trilha é uma fileira de provas (projetos, experiência,
@@ -15,9 +18,16 @@ export default function Home() {
 
       <main id="top" className="flex-1">
         <Billboard />
+        <Reveal>
+          <FeaturedSection projects={featuredProjects} />
+        </Reveal>
         <CatalogWall />
-        <AboutSection />
-        <ContactSection />
+        <Reveal>
+          <AboutSection />
+        </Reveal>
+        <Reveal>
+          <ContactSection />
+        </Reveal>
       </main>
 
       <Footer />

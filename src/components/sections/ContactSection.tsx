@@ -14,7 +14,7 @@ export function ContactSection() {
     <section id="contato" aria-labelledby="titulo-contato" className="mx-auto max-w-[1440px] scroll-mt-20 px-6 pt-24">
       {/* Fecha a página como ela abriu: um painel grande, tom do fundo
           elevado, com o título na mesma voz de display do nome. */}
-      <div className="rounded-xl bg-background-elevated p-6 sm:p-10 lg:p-14">
+      <div className="glass rounded-3xl p-6 sm:p-10 lg:p-14">
         <h2 id="titulo-contato" className="display text-5xl sm:text-6xl lg:text-7xl">
           Contato
         </h2>

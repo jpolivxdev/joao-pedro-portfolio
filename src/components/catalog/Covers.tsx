@@ -12,13 +12,15 @@ const strokeW = { fill: "none", stroke: "#ffffff", strokeLinecap: "round", strok
 const strokeL = { fill: "none", stroke: "var(--c-light)", strokeLinecap: "round", strokeLinejoin: "round" } as const;
 const strokeD = { fill: "none", stroke: "var(--c-deep)", strokeLinecap: "round", strokeLinejoin: "round" } as const;
 
-function Frame({ children, tall = false }: { children: ReactNode; tall?: boolean }) {
+// fit="slice" preenche a área cortando as sobras; fit="meet" mostra o
+// desenho inteiro (usado nas faixas do celular, que são baixas demais).
+function Frame({ children, tall = false, fit = "slice" }: { children: ReactNode; tall?: boolean; fit?: "slice" | "meet" }) {
   return (
     <svg
       aria-hidden="true"
       focusable="false"
       viewBox={tall ? "0 0 240 320" : "0 0 320 180"}
-      preserveAspectRatio="xMidYMid slice"
+      preserveAspectRatio={`xMidYMid ${fit}`}
       className="absolute inset-0 h-full w-full"
     >
       {children}
@@ -213,7 +215,11 @@ const TRACK_ART: Record<string, () => ReactNode> = {
   ),
 };
 
-export function TrackCover({ track }: { track: string }) {
+export function TrackCover({ track, fit }: { track: string; fit?: "slice" | "meet" }) {
   const art = TRACK_ART[track];
-  return <Frame tall>{art ? art() : null}</Frame>;
+  return (
+    <Frame tall fit={fit}>
+      {art ? art() : null}
+    </Frame>
+  );
 }

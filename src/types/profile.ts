@@ -67,10 +67,15 @@ export interface TrackItem {
   /** Nome curto no tile, quando o título original é longo demais. */
   title?: string;
   /**
-   * Experiência usada em mais de uma trilha: quais destaques (índices de
-   * `highlights`) cada trilha mostra no painel. Sem isso, mostra todos.
+   * Experiência que serve a mais de uma trilha: os destaques (índices de
+   * `highlights`) agrupados por assunto no painel. Sem isso, lista todos.
    */
-  highlights?: number[];
+  highlightGroups?: { label: string; highlights: number[] }[];
+  /**
+   * O detalhe deste item mora em outra trilha: aqui ele é só uma
+   * referência que leva até lá, para a informação existir uma vez só.
+   */
+  seeAlso?: TrackId;
   /** Uma frase curta, sempre visível na legenda do tile. */
   line: string;
   cover: string;
@@ -85,4 +90,27 @@ export interface Track {
   /** Currículo desta trilha, quando existe um. */
   resume?: ResumeFile;
   items: TrackItem[];
+}
+
+/** Projeto em destaque (seção logo depois da abertura), com print real. */
+export interface FeaturedProject {
+  id: string;
+  title: string;
+  /** Situação real do projeto, sem enfeite (ex.: "Em construção"). */
+  status: string;
+  /** Uma frase curta no card. */
+  line: string;
+  meta: string;
+  paragraphs: string[];
+  groups: { label: string; items: string[] }[];
+  stack: string[];
+  links: { label: string; href: string }[];
+  /** Print do tema escuro; `imageLight`, quando existe, entra no tema claro. */
+  image: string;
+  imageLight?: string;
+  imageAlt: string;
+  /** Legenda do print (ex.: avisar que os dados são fictícios). */
+  caption: string;
+  /** "wide" ocupa a coluna larga do mosaico; "tall", a coluna alta. */
+  shape: "wide" | "tall";
 }

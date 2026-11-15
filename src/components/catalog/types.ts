@@ -19,6 +19,10 @@ export interface TileData {
   meta?: string;
   paragraphs: string[];
   bullets: string[];
+  /** Destaques separados por assunto (ex.: a Huawei, que serve a duas trilhas). */
+  bulletGroups?: { label: string; items: string[] }[];
+  /** Tile de referência: em vez de abrir um painel aqui, leva ao tile de outra fileira. */
+  seeAlso?: { rowId: string; tileId: string; label: string };
   chips: string[];
   quote?: { text: string; author: string; role: string };
   links: TileLink[];
