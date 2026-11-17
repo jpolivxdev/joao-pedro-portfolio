@@ -20,7 +20,7 @@ export const personal = {
   short:
     "Estudante de Análise e Desenvolvimento de Sistemas na FACENS (5º semestre), buscando minha primeira vaga efetiva em TI.",
   about:
-    "Tenho 20 anos e estou no 5º semestre de Análise e Desenvolvimento de Sistemas na FACENS. Construo APIs REST com Node.js, Express e MongoDB, já usei React e Angular em projetos reais, e atuei na área técnica da Huawei em projetos de telecomunicações. Busco minha primeira vaga efetiva como Desenvolvedor Backend Jr, Analista de Suporte Técnico Jr ou em Infraestrutura/Telecom.",
+    "Tenho 20 anos e estou no 5º semestre de Análise e Desenvolvimento de Sistemas na FACENS (formatura prevista para dezembro de 2026). Construo APIs REST com NestJS, TypeScript e PostgreSQL, com testes automatizados e CI/CD, como no FinTrack e no Nexo. Também tenho base em Node.js/Express, Java/Spring Boot, React e Angular, e passei 2 anos na área técnica da Huawei em projetos de telecomunicações. Busco minha primeira vaga efetiva como Desenvolvedor Backend Jr, Analista de Suporte Técnico Jr ou em Infraestrutura/Telecom.",
   location: "Sorocaba, SP",
   availability: ["Sorocaba", "Híbrido", "Remoto"],
   avatarSrc: "/images/avatar.jpg",
@@ -51,15 +51,30 @@ export const contactLinks: ContactLink[] = [
 ];
 
 export const skills: Skill[] = [
-  { name: "Node.js", level: "principal" },
-  { name: "Express", level: "principal" },
+  { name: "NestJS", level: "principal" },
   { name: "TypeScript", level: "principal" },
+  { name: "PostgreSQL", level: "principal" },
+  { name: "Prisma", level: "principal" },
+  { name: "Node.js", level: "principal" },
   { name: "APIs REST", level: "principal" },
-  { name: "MongoDB", level: "principal" },
+  { name: "Testes automatizados", level: "principal" },
+  { name: "CI/CD", level: "principal" },
+  { name: "Docker", level: "secundaria" },
   { name: "React", level: "secundaria" },
+  { name: "Express", level: "secundaria" },
+  { name: "MongoDB", level: "secundaria" },
   { name: "Angular", level: "secundaria" },
   { name: "Java", level: "secundaria" },
   { name: "Spring Boot", level: "secundaria" },
+];
+
+// Faixa de números logo abaixo do título (Billboard). Só entra aqui o que dá
+// para provar: estágio, testes do FinTrack, certificações e artigo.
+export const highlights: { value: string; label: string }[] = [
+  { value: "2 anos", label: "de estágio na Huawei" },
+  { value: "300+", label: "testes automatizados no FinTrack" },
+  { value: "3", label: "certificações em telecom e 5G" },
+  { value: "1", label: "artigo em formato IEEE" },
 ];
 
 export const resumes: ResumeFile[] = [
@@ -179,7 +194,7 @@ export const tracks: Track[] = [
   {
     id: "backend",
     name: "Backend Jr",
-    scope: "Node.js, TypeScript, APIs REST e bancos de dados",
+    scope: "NestJS, TypeScript, PostgreSQL e APIs REST",
     proof: "FinTrack no ar, com Swagger",
     resume: resumes[0],
     items: [
