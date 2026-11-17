@@ -1,7 +1,7 @@
 import { Fragment, type CSSProperties } from "react";
 import Image from "next/image";
 import { Parallax } from "@/components/ui/Parallax";
-import { contactLinks, personal, tracks } from "@/data/profile";
+import { contactLinks, highlights, personal, tracks } from "@/data/profile";
 import { GithubIcon, LinkedinIcon, MailIcon, WhatsappIcon } from "@/components/ui/icons";
 import { TrackCover } from "./Covers";
 
@@ -55,6 +55,19 @@ export function Billboard() {
         <p className="mt-3 text-sm text-muted sm:mt-5">
           Aberto a vagas em <span className="text-foreground">{personal.availability.join(", ")}</span>.
         </p>
+
+        {/* Faixa de números: prova rápida logo abaixo do nome. */}
+        <dl
+          aria-label="Destaques"
+          className="mt-5 grid max-w-[560px] grid-cols-2 gap-x-6 gap-y-4 sm:mt-6 sm:grid-cols-4"
+        >
+          {highlights.map((item) => (
+            <div key={item.label}>
+              <dt className="display text-2xl text-foreground sm:text-3xl">{item.value}</dt>
+              <dd className="mt-1 text-xs leading-snug text-muted">{item.label}</dd>
+            </div>
+          ))}
+        </dl>
 
         <div className="mt-5 flex flex-wrap gap-3 sm:mt-8">
           <a
