@@ -18,6 +18,7 @@ const SIMPLE_ICON_SLUGS: Record<string, string> = {
   "Chart.js": "chartdotjs",
   PostgreSQL: "postgresql",
   Supabase: "supabase",
+  Docker: "docker",
 };
 
 interface TechIconProps {
