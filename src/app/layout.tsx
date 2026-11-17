@@ -35,10 +35,11 @@ export const metadata: Metadata = {
   description: personal.about,
   keywords: [
     "Desenvolvedor Backend Jr",
+    "NestJS",
     "Node.js",
     "TypeScript",
+    "PostgreSQL",
     "APIs REST",
-    "MongoDB",
     "Analista de Suporte Técnico",
     "Portfólio",
   ],
